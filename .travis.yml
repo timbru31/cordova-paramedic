@@ -42,6 +42,9 @@ matrix:
     - env: PLATFORM=browser-safari
     - env: PLATFORM=browser-edge
 
+    - env: PLATFORM=ios-9.3
+      os: osx
+      osx_image: xcode9
     - env: PLATFORM=ios-10.0
       os: osx
       osx_image: xcode9
