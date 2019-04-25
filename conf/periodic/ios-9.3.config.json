@@ -1,5 +1,6 @@
 {
-    "platform": "ios@https://github.com/apache/cordova-ios.git",
+    "platform": "ios@4.5.5",
+    "args": "--buildFlag='-UseModernBuildSystem=0'",
     "action": "run",
     "cleanUpAfterRun": true,
     "verbose": true,

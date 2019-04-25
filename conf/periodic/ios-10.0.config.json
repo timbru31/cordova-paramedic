@@ -1,5 +1,5 @@
 {
-    "platform": "ios@https://github.com/apache/cordova-ios.git",
+    "platform": "ios",
     "action": "run",
     "cleanUpAfterRun": true,
     "verbose": true,
