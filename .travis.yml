@@ -40,6 +40,8 @@ matrix:
     # one local test, without saucelabs
     - env: PLATFORM=local/ios-10.0
       <<: *_ios
+    - env: PLATFORM=local/android-5.1
+      <<: *_android
 
     # many tests with saucelabs
     - env: PLATFORM=browser-chrome
