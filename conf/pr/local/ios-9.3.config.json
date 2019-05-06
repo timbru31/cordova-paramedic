@@ -4,6 +4,5 @@
     "action": "run",
     "cleanUpAfterRun": true,
     "target": "iPhone-SE, 9.3",
-    "shouldUseSauce": false,
     "verbose": true
 }
