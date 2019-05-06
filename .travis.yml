@@ -82,10 +82,4 @@ install:
   - npm install
 
 script:
-  - if [[ "$PLATFORM" =~ local ]]; then
-      node main.js --config ./pr/$PLATFORM --plugin ./spec/testable-plugin/ --buildName travis-paramedic-$TRAVIS_JOB_NUMBER;
-    fi
-
-  - if [[ "$PLATFORM" != local* ]]; then 
-      node main.js --config ./pr/$PLATFORM --plugin ./spec/testable-plugin/ --buildName travis-paramedic-$TRAVIS_JOB_NUMBER --shouldUseSauce;
-    fi
+  - node main.js --config ./pr/$PLATFORM --plugin ./spec/testable-plugin/ --buildName travis-paramedic-$TRAVIS_JOB_NUMBER;
