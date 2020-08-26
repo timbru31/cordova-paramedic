@@ -1,7 +1,7 @@
 {
-    "platform": "ios",
+    "platform": "ios@latest",
     "action": "run",
     "cleanUpAfterRun": true,
-    "target": "iPhone-XR",
+    "target": "iPhone-11",
     "verbose": true
 }
