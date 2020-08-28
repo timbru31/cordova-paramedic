@@ -1,7 +1,7 @@
 {
-    "platform": "ios@latest",
-    "action": "run",
-    "cleanUpAfterRun": true,
-    "target": "iPhone-11",
-    "verbose": true
+  "platform": "ios@nightly",
+  "action": "run",
+  "cleanUpAfterRun": true,
+  "target": "iPhone-11",
+  "verbose": true
 }
