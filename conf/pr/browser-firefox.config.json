@@ -4,6 +4,6 @@
     "cleanUpAfterRun": true,
     "shouldUseSauce": true,
     "sauceDeviceName": "firefox",
-    "saucePlatformVersion": "54.0",
+    "saucePlatformVersion": "80.0",
     "verbose": true
 }
