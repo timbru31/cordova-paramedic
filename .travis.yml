@@ -16,6 +16,8 @@
 # under the License.
 
 addons:
+  sauce_connect:
+    username: cordova
   jwt:
     # SAUCE_ACCESS_KEY
     secure: "3ZtWdybHvGm9uVJjMeMfGcbptdI+9xALUt8T5iLZWFE6yE10ulP4Svn7RvtCspQVRqKdmDeAHmKl8Rm84WQCh+hy2N9Vn4CW+ZfVg2R5/DAgG3ChMWcDOggoPMtr9I8iw8GLz6/78CY+RV+QOunRsUhTrjiSiegWek+0BUuz4rV9n4VVJJ3r63HXkY1ylJJpSOrQf/ZbXW/fz33Inlk5LUhAokjrD2NsrMtcMFcketFo4s61qu/SyRmD/vwi2dWhDUqLyiOFyWGr85h6zIYifniep72ijsD/v7gw3yM+yePStHAwgMaM3DMxnMmiikYGE4WSRwU79lxmug7VmbSYdZxNztwnrCr3Yy82wFmahDC/tQcNb+XdCLD1qrGhVR26KBDbHVBtK/PJLq8gQ+rZrX2qTm7aNsasw65rHgRGxaj5ndYBNM+0Kgwk+s0SrwRw49fHjaZYCqGLooedlYT7KU/iYtl8ysdrP/QHJ+sv1lkRnkgE9NQ3egiwAS91Jc/BQ960M1GVCxGJ+sF6s1FwUHZd1i3wm5qL1JUfKzTvNCj1XHdFFIq/GEYUTsDuAW3vbQPSt+GU4bETz1N4d9tCEgh5DFvbtH1TyDVmayFl/ZVGggPOK+wm+HCdjlKXaS+JVGQIHtRncTyUlhKWtaFrO7dlRvDbz3DcW9l6qq7kDGQ="
@@ -53,14 +55,14 @@ _android: &_android
 matrix:
   include:
     # additional `npm test` in directory
-    - env: ADDITIONAL_TESTS_DIR=./spec/testable-plugin/tests/foo
-      <<: *_ios
+    # - env: ADDITIONAL_TESTS_DIR=./spec/testable-plugin/tests/foo
+    #   <<: *_ios
 
-    # local tests, without saucelabs
-    - env: PLATFORM=local/browser
-      <<: *_ios
-    - env: PLATFORM=local/ios-10.0
-      <<: *_ios
+    # # local tests, without saucelabs
+    # - env: PLATFORM=local/browser
+    #   <<: *_ios
+    # - env: PLATFORM=local/ios-10.0
+    #   <<: *_ios
 
     # many tests with saucelabs
     - env: PLATFORM=browser-chrome
@@ -68,29 +70,28 @@ matrix:
     - env: PLATFORM=browser-safari
     - env: PLATFORM=browser-edge
 
-    - env: PLATFORM=ios-11.3
-      <<: *_ios
-    - env: PLATFORM=ios-12.0
-      <<: *_ios
-    - env: PLATFORM=ios-12.2
-      <<: *_ios
-
-    - env: PLATFORM=android-5.1
-      <<: *_android
-    - env: PLATFORM=android-6.0
-      <<: *_android
-    - env: PLATFORM=android-7.0
-      <<: *_android
-    - env: PLATFORM=android-7.1
-      <<: *_android
-    - env: PLATFORM=android-8.0
-      <<: *_android
-    - env: PLATFORM=android-8.1
-      <<: *_android
-    - env: PLATFORM=android-9.0
-      <<: *_android
-    - env: PLATFORM=android-10.0
-      <<: *_android
+    # - env: PLATFORM=ios-11.3
+    #   <<: *_ios
+    # - env: PLATFORM=ios-12.0
+    #   <<: *_ios
+    # - env: PLATFORM=ios-12.2
+    #   <<: *_ios
+    # - env: PLATFORM=android-5.1
+    #   <<: *_android
+    # - env: PLATFORM=android-6.0
+    #   <<: *_android
+    # - env: PLATFORM=android-7.0
+    #   <<: *_android
+    # - env: PLATFORM=android-7.1
+    #   <<: *_android
+    # - env: PLATFORM=android-8.0
+    #   <<: *_android
+    # - env: PLATFORM=android-8.1
+    #   <<: *_android
+    # - env: PLATFORM=android-9.0
+    #   <<: *_android
+    # - env: PLATFORM=android-10.0
+    #   <<: *_android
 
 before_install:
   # manually install Node for `language: android`
@@ -98,7 +99,7 @@ before_install:
   - node --version
   - if [[ "$PLATFORM" =~ android ]]; then gradle --version; fi
   - if [[ "$PLATFORM" =~ ios ]]; then npm install -g ios-deploy; fi
-  - npm install -g cordova
+  - npm install -g cordova serve
   # install paramedic if not running on paramedic repo
   - if ! [[ "$TRAVIS_REPO_SLUG" =~ cordova-paramedic ]]; then npm install -g github:apache/cordova-paramedic; fi
 
@@ -129,6 +130,7 @@ before_script:
     echo "PARAMEDIC_BUILDNAME=$PARAMEDIC_BUILDNAME"
 
 script:
+  - serve . &
   - $TEST_COMMAND
   - |
     if [[ "$ADDITIONAL_TESTS_DIR" != "" ]]; then
