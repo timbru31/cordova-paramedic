@@ -14,11 +14,10 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
-os: windows
+os: windows 
 addons:
-  sauce_connect:
-    username: cordova
+  # sauce_connect:
+  #   username: cordova
   jwt:
     # SAUCE_ACCESS_KEY
     secure: "3ZtWdybHvGm9uVJjMeMfGcbptdI+9xALUt8T5iLZWFE6yE10ulP4Svn7RvtCspQVRqKdmDeAHmKl8Rm84WQCh+hy2N9Vn4CW+ZfVg2R5/DAgG3ChMWcDOggoPMtr9I8iw8GLz6/78CY+RV+QOunRsUhTrjiSiegWek+0BUuz4rV9n4VVJJ3r63HXkY1ylJJpSOrQf/ZbXW/fz33Inlk5LUhAokjrD2NsrMtcMFcketFo4s61qu/SyRmD/vwi2dWhDUqLyiOFyWGr85h6zIYifniep72ijsD/v7gw3yM+yePStHAwgMaM3DMxnMmiikYGE4WSRwU79lxmug7VmbSYdZxNztwnrCr3Yy82wFmahDC/tQcNb+XdCLD1qrGhVR26KBDbHVBtK/PJLq8gQ+rZrX2qTm7aNsasw65rHgRGxaj5ndYBNM+0Kgwk+s0SrwRw49fHjaZYCqGLooedlYT7KU/iYtl8ysdrP/QHJ+sv1lkRnkgE9NQ3egiwAS91Jc/BQ960M1GVCxGJ+sF6s1FwUHZd1i3wm5qL1JUfKzTvNCj1XHdFFIq/GEYUTsDuAW3vbQPSt+GU4bETz1N4d9tCEgh5DFvbtH1TyDVmayFl/ZVGggPOK+wm+HCdjlKXaS+JVGQIHtRncTyUlhKWtaFrO7dlRvDbz3DcW9l6qq7kDGQ="
@@ -104,34 +103,35 @@ before_install:
   # install paramedic if not running on paramedic repo
   - if ! [[ "$TRAVIS_REPO_SLUG" =~ cordova-paramedic ]]; then npm install -g github:apache/cordova-paramedic; fi
 
-# install:
-#   - npm install
+install:
+  - npm install
 
-# before_script:
-#   - |
-#     if [[ "$TRAVIS_REPO_SLUG" =~ cordova-paramedic ]]; then 
-#       # when used in the cordova-paramedic repo
-#       TEST_COMMAND="npm run eslint"
-#       PARAMEDIC_PLUGIN_TO_TEST="./spec/testable-plugin/"
-#       PARAMEDIC_COMMAND="node main.js"
-#     else 
-#       # when used in any other (plugin) repo
-#       TEST_COMMAND="npm test"
-#       PARAMEDIC_PLUGIN_TO_TEST=$(pwd)
-#       PARAMEDIC_COMMAND="cordova-paramedic"
-#     fi
-#   - PARAMEDIC_BUILDNAME=travis-$TRAVIS_REPO_SLUG-$TRAVIS_JOB_NUMBER
-#   - |
-#     echo "Variables now are set to:"
-#     echo "TEST_COMMAND=$TEST_COMMAND"
-#     echo "ADDITIONAL_TESTS=$ADDITIONAL_TESTS"
-#     echo "PARAMEDIC_COMMAND=$PARAMEDIC_COMMAND"
-#     echo "PLATFORM=$PLATFORM"
-#     echo "PARAMEDIC_PLUGIN_TO_TEST=$PARAMEDIC_PLUGIN_TO_TEST"
-#     echo "PARAMEDIC_BUILDNAME=$PARAMEDIC_BUILDNAME"
+before_script:
+  - |
+    if [[ "$TRAVIS_REPO_SLUG" =~ cordova-paramedic ]]; then 
+      # when used in the cordova-paramedic repo
+      TEST_COMMAND="npm run eslint"
+      PARAMEDIC_PLUGIN_TO_TEST="./spec/testable-plugin/"
+      PARAMEDIC_COMMAND="node main.js"
+    else 
+      # when used in any other (plugin) repo
+      TEST_COMMAND="npm test"
+      PARAMEDIC_PLUGIN_TO_TEST=$(pwd)
+      PARAMEDIC_COMMAND="cordova-paramedic"
+    fi
+  - PARAMEDIC_BUILDNAME=travis-$TRAVIS_REPO_SLUG-$TRAVIS_JOB_NUMBER
+  - |
+    echo "Variables now are set to:"
+    echo "TEST_COMMAND=$TEST_COMMAND"
+    echo "ADDITIONAL_TESTS=$ADDITIONAL_TESTS"
+    echo "PARAMEDIC_COMMAND=$PARAMEDIC_COMMAND"
+    echo "PLATFORM=$PLATFORM"
+    echo "PARAMEDIC_PLUGIN_TO_TEST=$PARAMEDIC_PLUGIN_TO_TEST"
+    echo "PARAMEDIC_BUILDNAME=$PARAMEDIC_BUILDNAME"
 
 script:
-  - serve .
+  - serve . &
+  - $TEST_COMMAND
   - |
     if [[ "$ADDITIONAL_TESTS_DIR" != "" ]]; then
       cd $ADDITIONAL_TESTS_DIR && npm install && npm test;
