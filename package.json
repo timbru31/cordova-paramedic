@@ -28,7 +28,7 @@
     "test-browser": "node main.js --platform browser --plugin ./spec/testable-plugin/",
     "test-saucelabs": "npm run test-saucelabs-browser && npm run test-saucelabs-ios && npm run test-saucelabs-android",
     "test-saucelabs-on-windows": "npm run test-saucelabs-browser && npm run test-saucelabs-android",
-    "test-saucelabs-browser": "node main.js --config ./pr/browser-chrome --plugin ./spec/testable-plugin/ --shouldUseSauce",
+    "test-saucelabs-browser": "node main.js --config ./pr/browser-firefox --plugin ./spec/testable-plugin/ --shouldUseSauce",
     "test-saucelabs-ios": "node main.js --config ./pr/ios-12.0 --plugin ./spec/testable-plugin/ --shouldUseSauce",
     "test-saucelabs-android": "node main.js --config ./pr/android-7.0 --plugin ./spec/testable-plugin/ --shouldUseSauce"
   },
