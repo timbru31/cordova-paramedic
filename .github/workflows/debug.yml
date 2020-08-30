@@ -36,8 +36,8 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v1
+      # - name: Setup Android SDK
+      #   uses: android-actions/setup-android@v1
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
